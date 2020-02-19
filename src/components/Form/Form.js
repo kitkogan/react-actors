@@ -1,49 +1,59 @@
 import React, {Component} from 'react';
 
 class Form extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        firstName: '',
-        lastName: '',
-        bestImpression: ''
+    state = {
+        inputObject: {
+            firstName: '',
+            lastName: '',
+            bestImpression: ''
+        },
+        finalObject:{
+            firstName: '',
+            lastName: '',
+            bestImpression: ''
+          
+        }
+        
       };
-    }
+    
+      handleChange = (event, typeOf) => {
+        console.log(event.target.value, typeOf);
+        this.setState({
+            [typeOf]: event.target.value
+        })
+      }
+
+      handleClick = () => {
+
+          this.setState({
+             finalObject: {
+                 firstName: this.state.firstName,
+                 lastName: this.state.lastName,
+                 bestImpression: this.state.bestImpression
+             }
+          })
+          
+      }
+
 
     render(){
         return(
             <div className="Form">
-                <form>
-                    <input type="text" placeholder="First Name" name="firstName" value={this.state.firstName} onChange={evt => this.updateInputValue(evt)}/>
-                    <input type="text" placeholder="Last Name" name="lastName" value={this.state.lastName} onChange={evt => this.updateInputValue2(evt)}/>
-                    <input type="text" placeholder="Best Impression" name="bestImpression" value={this.state.bestImpression} onChange={evt => this.updateInputValue3(evt)}/>
-                    <input type="button" value="Alert the text input" onClick={this.handleClick} /> 
-                </form>
+                
+                    <label htmlFor="firstNameInput">First Name:</label>
+                    <input id="firstNameInput" placeholder="First Name" onChange={(event) => this.handleChange(event, 'firstName')}/>
+                    <label htmlFor="lastNameInput">Last Name:</label>
+                    <input id="lastNameInput" placeholder="Last Name" onChange={(event) => this.handleChange(event, 'lastName')}/>
+                    <label htmlFor="bestImpressionInput">Best Impression:</label>
+                    <input id="bestImpressionInput" placeholder="Best Impression" onChange={(event) => this.handleChange(event, 'bestImpression')}/>
+                    <button onClick={this.handleClick}>Join us!</button> 
+                
+
+                <h2>{this.state.finalObject.firstName} {this.state.finalObject.lastName}'s best impression is {this.state.finalObject.bestImpression}. </h2>
             </div>
 
         );
     }
-
-    updateInputValue(evt){
-        this.setState({
-            firstName: evt.target.value
-          
-        });
-    }
-
-    updateInputValue2(evt){
-        this.setState({
-            lastName: evt.target.value
-        });
-        
-    }
-
-    updateInputValue3(evt){
-        this.setState({
-            bestImpression: evt.target.value
-        });
-    }
-
     
 };
 export default Form;
