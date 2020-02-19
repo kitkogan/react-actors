@@ -12,8 +12,8 @@ class Form extends Component {
             lastName: '',
             bestImpression: ''
           
-        }
-        
+        },
+        displayCopy: ''
       };
     
       handleChange = (event, typeOf) => {
@@ -24,15 +24,23 @@ class Form extends Component {
       }
 
       handleClick = () => {
-
+          console.log(this.state.firstName);
+          if(this.state.firstName === undefined || this.state.lastName === undefined || this.state.bestImpression === undefined){
+            this.setState({
+                displayCopy: 'Please fill all form fields'
+            })  
+            
+          } else {
           this.setState({
              finalObject: {
                  firstName: this.state.firstName,
                  lastName: this.state.lastName,
                  bestImpression: this.state.bestImpression
-             }
+        
+             },
+             displayCopy: "'s best impression is "
           })
-          
+        } 
       }
 
 
@@ -49,7 +57,7 @@ class Form extends Component {
                     <button onClick={this.handleClick}>Join us!</button> 
                 
 
-                <h2>{this.state.finalObject.firstName} {this.state.finalObject.lastName}'s best impression is {this.state.finalObject.bestImpression}. </h2>
+                <h2>{this.state.finalObject.firstName} {this.state.finalObject.lastName}{this.state.displayCopy} {this.state.finalObject.bestImpression} </h2>
             </div>
 
         );
